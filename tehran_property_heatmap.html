@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8bbbeecb26ccd716a3e5bc5aad992166 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+            bottom: 50px; right: 50px; width: 200px; height: 120px; 
+            background-color: white; border:2px solid grey; z-index:9999; 
+            font-size:14px; padding: 10px">
+<h4>Price Levels</h4>
+<i class="fa fa-star" style="color:red"></i> Ultra Luxury (>$1M)<br>
+<i class="fa fa-fire" style="color:orange"></i> Luxury ($500K-$1M)<br>
+<i class="fa fa-home" style="color:gold"></i> Premium ($200K-$500K)<br>
+<i class="fa fa-info" style="color:green"></i> Standard (<$200K)
+</div>
+    
+            <div class="folium-map" id="map_8bbbeecb26ccd716a3e5bc5aad992166" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_8bbbeecb26ccd716a3e5bc5aad992166 = L.map(
+                "map_8bbbeecb26ccd716a3e5bc5aad992166",
+                {
+                    center: [35.7219, 51.3347],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8ecb111192a8275e6b74899814896b91 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_8ecb111192a8275e6b74899814896b91.addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var heat_map_f6bc8771e67d7c1a1974adb89e97ee95 = L.heatLayer(
+                [[35.72, 51.75, 0.2592739732876712], [35.49, 51.01, 0.1745301874015748], [35.66, 50.97, 0.0833333], [35.48, 51.08, 0.1091667], [35.75, 51.38, 3.1629198953488378], [35.79, 51.43, 8.928784305882353], [35.78, 51.44, 3.5749047642857144], [35.74, 51.46, 4.39146668], [35.73, 51.31, 1.0352482772413794], [35.765, 51.33, 1.2427681161490685], [35.77, 51.41, 2.864710139130435], [35.785, 51.465, 6.9724268982456135], [35.765, 51.415, 3.378015880952381], [35.76, 51.42, 3.4626666533333337], [35.74, 51.32, 3.9899604508474584], [35.775, 51.48, 5.859999996], [35.82, 51.47, 6.631068627941176], [35.79, 51.49, 6.244871799999999], [35.81, 51.43, 5.883333328571429], [35.81, 51.44, 7.858382714814814], [35.758, 51.4042, 10], [35.8, 51.45, 7.1271212136363635], [35.73, 51.42, 10], [35.8262, 51.6326, 10], [35.7219, 51.4056, 10]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 1,
+  "radius": 20,
+  "blur": 15,
+  "gradient": {
+  0.2: "blue",
+  0.4: "cyan",
+  0.6: "lime",
+  0.8: "yellow",
+  1.0: "red",
+},
+}
+            );
+        
+    
+            heat_map_f6bc8771e67d7c1a1974adb89e97ee95.addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var marker_96202d6d42589eb913703fc0fb8ef9fc = L.marker(
+                [35.7219, 51.4056],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_188710337e84a02d42bc003771d47677 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_201fb43fa336fa22369609057a44995c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_149a27d2495d0f0585e397922fd7d0b6 = $(`<div id="html_149a27d2495d0f0585e397922fd7d0b6" style="width: 100.0%; height: 100.0%;">         <b>Gandhi</b><br>         Average Price: $2,333,333<br>         Properties: 1<br>         Top 1% Properties: 1<br>         Price/m²: $4,667         </div>`)[0];
+                popup_201fb43fa336fa22369609057a44995c.setContent(html_149a27d2495d0f0585e397922fd7d0b6);
+            
+        
+
+        marker_96202d6d42589eb913703fc0fb8ef9fc.bindPopup(popup_201fb43fa336fa22369609057a44995c)
+        ;
+
+        
+    
+    
+            marker_96202d6d42589eb913703fc0fb8ef9fc.bindTooltip(
+                `<div>
+                     Gandhi: $2,333,333
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_96202d6d42589eb913703fc0fb8ef9fc.setIcon(icon_188710337e84a02d42bc003771d47677);
+            
+    
+            var marker_bd6a1d449f7144bc4105333440a904b1 = L.marker(
+                [35.8262, 51.6326],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_fde7846a1f529885eddb74984f23ee97 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a7fcfd83cc4833df8786e08955c04f94 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e7146c6581bea19e2b9471b93e52e8d4 = $(`<div id="html_e7146c6581bea19e2b9471b93e52e8d4" style="width: 100.0%; height: 100.0%;">         <b>Lavasan</b><br>         Average Price: $1,600,000<br>         Properties: 4<br>         Top 1% Properties: 1<br>         Price/m²: $3,910         </div>`)[0];
+                popup_a7fcfd83cc4833df8786e08955c04f94.setContent(html_e7146c6581bea19e2b9471b93e52e8d4);
+            
+        
+
+        marker_bd6a1d449f7144bc4105333440a904b1.bindPopup(popup_a7fcfd83cc4833df8786e08955c04f94)
+        ;
+
+        
+    
+    
+            marker_bd6a1d449f7144bc4105333440a904b1.bindTooltip(
+                `<div>
+                     Lavasan: $1,600,000
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bd6a1d449f7144bc4105333440a904b1.setIcon(icon_fde7846a1f529885eddb74984f23ee97);
+            
+    
+            var marker_74b737497d06e258d8d68cb465f28dbc = L.marker(
+                [35.758, 51.4042],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_a8cba6ad7931780c396bd47a8759114f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_680ed97dea3947ec26477b6c67537c31 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_18045600fec9f68bb2cabed42d369e5c = $(`<div id="html_18045600fec9f68bb2cabed42d369e5c" style="width: 100.0%; height: 100.0%;">         <b>Vanak</b><br>         Average Price: $1,090,000<br>         Properties: 2<br>         Top 1% Properties: 1<br>         Price/m²: $4,247         </div>`)[0];
+                popup_680ed97dea3947ec26477b6c67537c31.setContent(html_18045600fec9f68bb2cabed42d369e5c);
+            
+        
+
+        marker_74b737497d06e258d8d68cb465f28dbc.bindPopup(popup_680ed97dea3947ec26477b6c67537c31)
+        ;
+
+        
+    
+    
+            marker_74b737497d06e258d8d68cb465f28dbc.bindTooltip(
+                `<div>
+                     Vanak: $1,090,000
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_74b737497d06e258d8d68cb465f28dbc.setIcon(icon_a8cba6ad7931780c396bd47a8759114f);
+            
+    
+            var marker_a4d0122cc1fe3421ac209976fbc42bfe = L.marker(
+                [35.73, 51.42],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_3cdc3f1b94f5f569ee4cb18fa4673c50 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b7ec831efe7562430118b17a2949b388 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4691e278589b5fc3b2c8ca3b740ad374 = $(`<div id="html_4691e278589b5fc3b2c8ca3b740ad374" style="width: 100.0%; height: 100.0%;">         <b>Mahmoudieh</b><br>         Average Price: $1,115,556<br>         Properties: 3<br>         Top 1% Properties: 1<br>         Price/m²: $2,780         </div>`)[0];
+                popup_b7ec831efe7562430118b17a2949b388.setContent(html_4691e278589b5fc3b2c8ca3b740ad374);
+            
+        
+
+        marker_a4d0122cc1fe3421ac209976fbc42bfe.bindPopup(popup_b7ec831efe7562430118b17a2949b388)
+        ;
+
+        
+    
+    
+            marker_a4d0122cc1fe3421ac209976fbc42bfe.bindTooltip(
+                `<div>
+                     Mahmoudieh: $1,115,556
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a4d0122cc1fe3421ac209976fbc42bfe.setIcon(icon_3cdc3f1b94f5f569ee4cb18fa4673c50);
+            
+    
+            var marker_c607dc962d09f989261df442cdd29dfb = L.marker(
+                [35.79, 51.43],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_01ad69325f1a1ae763167e1f284f0cdf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a9f9aaad5098c53f093ba3fd9ca3e99e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c3b13b160e139627840efe4b5f112bab = $(`<div id="html_c3b13b160e139627840efe4b5f112bab" style="width: 100.0%; height: 100.0%;">         <b>Elahieh</b><br>         Average Price: $892,878<br>         Properties: 17<br>         Top 1% Properties: 1<br>         Price/m²: $3,740         </div>`)[0];
+                popup_a9f9aaad5098c53f093ba3fd9ca3e99e.setContent(html_c3b13b160e139627840efe4b5f112bab);
+            
+        
+
+        marker_c607dc962d09f989261df442cdd29dfb.bindPopup(popup_a9f9aaad5098c53f093ba3fd9ca3e99e)
+        ;
+
+        
+    
+    
+            marker_c607dc962d09f989261df442cdd29dfb.bindTooltip(
+                `<div>
+                     Elahieh: $892,878
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c607dc962d09f989261df442cdd29dfb.setIcon(icon_01ad69325f1a1ae763167e1f284f0cdf);
+            
+    
+            var marker_4e13d62ea57ac67b26fddbc7582192a3 = L.marker(
+                [35.81, 51.44],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_cc7fe085c66fd6699232c8c792b1fe62 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7b176389da20e8328046ed52c6b0d093 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_83339f98b26f306a91b0f922498a0baa = $(`<div id="html_83339f98b26f306a91b0f922498a0baa" style="width: 100.0%; height: 100.0%;">         <b>Zaferanieh</b><br>         Average Price: $785,838<br>         Properties: 27<br>         Top 1% Properties: 1<br>         Price/m²: $3,790         </div>`)[0];
+                popup_7b176389da20e8328046ed52c6b0d093.setContent(html_83339f98b26f306a91b0f922498a0baa);
+            
+        
+
+        marker_4e13d62ea57ac67b26fddbc7582192a3.bindPopup(popup_7b176389da20e8328046ed52c6b0d093)
+        ;
+
+        
+    
+    
+            marker_4e13d62ea57ac67b26fddbc7582192a3.bindTooltip(
+                `<div>
+                     Zaferanieh: $785,838
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4e13d62ea57ac67b26fddbc7582192a3.setIcon(icon_cc7fe085c66fd6699232c8c792b1fe62);
+            
+    
+            var marker_48c18e7cf4cbda9f5eeb7af8fb420af2 = L.marker(
+                [35.8, 51.45],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_b2921bf72192234a02870e0b4e45fa97 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4cf813ecb656cb28b42d25f1d0c8e3f2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_23a80bf7735d1fb1a9160b522c7e3c21 = $(`<div id="html_23a80bf7735d1fb1a9160b522c7e3c21" style="width: 100.0%; height: 100.0%;">         <b>Velenjak</b><br>         Average Price: $712,712<br>         Properties: 22<br>         Top 1% Properties: 1<br>         Price/m²: $3,723         </div>`)[0];
+                popup_4cf813ecb656cb28b42d25f1d0c8e3f2.setContent(html_23a80bf7735d1fb1a9160b522c7e3c21);
+            
+        
+
+        marker_48c18e7cf4cbda9f5eeb7af8fb420af2.bindPopup(popup_4cf813ecb656cb28b42d25f1d0c8e3f2)
+        ;
+
+        
+    
+    
+            marker_48c18e7cf4cbda9f5eeb7af8fb420af2.bindTooltip(
+                `<div>
+                     Velenjak: $712,712
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_48c18e7cf4cbda9f5eeb7af8fb420af2.setIcon(icon_b2921bf72192234a02870e0b4e45fa97);
+            
+    
+            var marker_903eb21df98ec0900111df86ad6eb105 = L.marker(
+                [35.785, 51.465],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_04ffa2eb99764023f5921d9772bcfb0a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_231b212662add25b30aff58f58822ceb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6f8a4c919ec6b18fd97131aacba28381 = $(`<div id="html_6f8a4c919ec6b18fd97131aacba28381" style="width: 100.0%; height: 100.0%;">         <b>Farmanieh</b><br>         Average Price: $697,243<br>         Properties: 57<br>         Top 1% Properties: 1<br>         Price/m²: $3,411         </div>`)[0];
+                popup_231b212662add25b30aff58f58822ceb.setContent(html_6f8a4c919ec6b18fd97131aacba28381);
+            
+        
+
+        marker_903eb21df98ec0900111df86ad6eb105.bindPopup(popup_231b212662add25b30aff58f58822ceb)
+        ;
+
+        
+    
+    
+            marker_903eb21df98ec0900111df86ad6eb105.bindTooltip(
+                `<div>
+                     Farmanieh: $697,243
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_903eb21df98ec0900111df86ad6eb105.setIcon(icon_04ffa2eb99764023f5921d9772bcfb0a);
+            
+    
+            var marker_a481322108760ac26e6d98e96faca482 = L.marker(
+                [35.82, 51.47],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_cf13175a8e213fa53013d4cb81cd9514 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_92f73aedbc933911a2efee6a5fe3fb73 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ade324025511a8d4837461c0b4c81c64 = $(`<div id="html_ade324025511a8d4837461c0b4c81c64" style="width: 100.0%; height: 100.0%;">         <b>Niavaran</b><br>         Average Price: $663,107<br>         Properties: 68<br>         Top 1% Properties: 1<br>         Price/m²: $3,426         </div>`)[0];
+                popup_92f73aedbc933911a2efee6a5fe3fb73.setContent(html_ade324025511a8d4837461c0b4c81c64);
+            
+        
+
+        marker_a481322108760ac26e6d98e96faca482.bindPopup(popup_92f73aedbc933911a2efee6a5fe3fb73)
+        ;
+
+        
+    
+    
+            marker_a481322108760ac26e6d98e96faca482.bindTooltip(
+                `<div>
+                     Niavaran: $663,107
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a481322108760ac26e6d98e96faca482.setIcon(icon_cf13175a8e213fa53013d4cb81cd9514);
+            
+    
+            var marker_b7869f5b433bffc636015dd64d59a700 = L.marker(
+                [35.775, 51.48],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_469364111eddc0839032c0f339015300 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_246c59b1ca0c0bfff7346d001c03d796 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_51681908951d279f7fd1acfd93841e37 = $(`<div id="html_51681908951d279f7fd1acfd93841e37" style="width: 100.0%; height: 100.0%;">         <b>Aqdasieh</b><br>         Average Price: $586,000<br>         Properties: 25<br>         Top 1% Properties: 1<br>         Price/m²: $3,030         </div>`)[0];
+                popup_246c59b1ca0c0bfff7346d001c03d796.setContent(html_51681908951d279f7fd1acfd93841e37);
+            
+        
+
+        marker_b7869f5b433bffc636015dd64d59a700.bindPopup(popup_246c59b1ca0c0bfff7346d001c03d796)
+        ;
+
+        
+    
+    
+            marker_b7869f5b433bffc636015dd64d59a700.bindTooltip(
+                `<div>
+                     Aqdasieh: $586,000
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b7869f5b433bffc636015dd64d59a700.setIcon(icon_469364111eddc0839032c0f339015300);
+            
+    
+            var marker_5273731ff224050befc63a7d00515fa4 = L.marker(
+                [35.79, 51.49],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_5163317ac9d0815d4e4044a8fbbdcd22 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0c317fb3663302c4a8116202a6c7808d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_73cd666f6673b5f3298ba1e4d47098be = $(`<div id="html_73cd666f6673b5f3298ba1e4d47098be" style="width: 100.0%; height: 100.0%;">         <b>Dorous</b><br>         Average Price: $624,487<br>         Properties: 13<br>         Top 1% Properties: 1<br>         Price/m²: $2,716         </div>`)[0];
+                popup_0c317fb3663302c4a8116202a6c7808d.setContent(html_73cd666f6673b5f3298ba1e4d47098be);
+            
+        
+
+        marker_5273731ff224050befc63a7d00515fa4.bindPopup(popup_0c317fb3663302c4a8116202a6c7808d)
+        ;
+
+        
+    
+    
+            marker_5273731ff224050befc63a7d00515fa4.bindTooltip(
+                `<div>
+                     Dorous: $624,487
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5273731ff224050befc63a7d00515fa4.setIcon(icon_5163317ac9d0815d4e4044a8fbbdcd22);
+            
+    
+            var marker_84c3e935396aba43e7b5de3aab7ce620 = L.marker(
+                [35.77, 51.41],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_f7193b428a978e2a095c730e137941c8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "yellow",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7207019593d02111b96bd502815db001 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fa406ed55492bbab2075a96f49718fae = $(`<div id="html_fa406ed55492bbab2075a96f49718fae" style="width: 100.0%; height: 100.0%;">         <b>Abazar</b><br>         Average Price: $286,471<br>         Properties: 23<br>         Top 1% Properties: 1<br>         Price/m²: $1,739         </div>`)[0];
+                popup_7207019593d02111b96bd502815db001.setContent(html_fa406ed55492bbab2075a96f49718fae);
+            
+        
+
+        marker_84c3e935396aba43e7b5de3aab7ce620.bindPopup(popup_7207019593d02111b96bd502815db001)
+        ;
+
+        
+    
+    
+            marker_84c3e935396aba43e7b5de3aab7ce620.bindTooltip(
+                `<div>
+                     Abazar: $286,471
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_84c3e935396aba43e7b5de3aab7ce620.setIcon(icon_f7193b428a978e2a095c730e137941c8);
+            
+    
+            var marker_4ad5e135672b5fc5464910492cf4aa05 = L.marker(
+                [35.765, 51.415],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_f3f4a2742718431df58357588d5a875b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "yellow",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8d4134f888587e82e318693e49a06cbe = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1209ffc096ddeb9d0d828507c932aa6f = $(`<div id="html_1209ffc096ddeb9d0d828507c932aa6f" style="width: 100.0%; height: 100.0%;">         <b>Ekhtiarieh</b><br>         Average Price: $337,802<br>         Properties: 42<br>         Top 1% Properties: 1<br>         Price/m²: $2,159         </div>`)[0];
+                popup_8d4134f888587e82e318693e49a06cbe.setContent(html_1209ffc096ddeb9d0d828507c932aa6f);
+            
+        
+
+        marker_4ad5e135672b5fc5464910492cf4aa05.bindPopup(popup_8d4134f888587e82e318693e49a06cbe)
+        ;
+
+        
+    
+    
+            marker_4ad5e135672b5fc5464910492cf4aa05.bindTooltip(
+                `<div>
+                     Ekhtiarieh: $337,802
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4ad5e135672b5fc5464910492cf4aa05.setIcon(icon_f3f4a2742718431df58357588d5a875b);
+            
+    
+            var marker_81531a7626a933e07ed35145e14d1a24 = L.marker(
+                [35.75, 51.38],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_758f604ff772d5d91a4e6f13ed40b6c4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "yellow",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fc7df09ab2d8d46b1fe58e6573ace092 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7e9b6bebb82add506e6b6c49e5be9c16 = $(`<div id="html_7e9b6bebb82add506e6b6c49e5be9c16" style="width: 100.0%; height: 100.0%;">         <b>Saadat Abad</b><br>         Average Price: $316,292<br>         Properties: 129<br>         Top 1% Properties: 1<br>         Price/m²: $2,307         </div>`)[0];
+                popup_fc7df09ab2d8d46b1fe58e6573ace092.setContent(html_7e9b6bebb82add506e6b6c49e5be9c16);
+            
+        
+
+        marker_81531a7626a933e07ed35145e14d1a24.bindPopup(popup_fc7df09ab2d8d46b1fe58e6573ace092)
+        ;
+
+        
+    
+    
+            marker_81531a7626a933e07ed35145e14d1a24.bindTooltip(
+                `<div>
+                     Saadat Abad: $316,292
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_81531a7626a933e07ed35145e14d1a24.setIcon(icon_758f604ff772d5d91a4e6f13ed40b6c4);
+            
+    
+            var marker_ca25651b7325495fd29ccccebf017a2a = L.marker(
+                [35.81, 51.43],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_0d6da111ee76049627342c7523259db3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_68b77414e7311bf26e5c952b19d14b2a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cbde1935478f29849fdf86b3bde1d97e = $(`<div id="html_cbde1935478f29849fdf86b3bde1d97e" style="width: 100.0%; height: 100.0%;">         <b>Tajrish</b><br>         Average Price: $588,333<br>         Properties: 7<br>         Top 1% Properties: 1<br>         Price/m²: $2,287         </div>`)[0];
+                popup_68b77414e7311bf26e5c952b19d14b2a.setContent(html_cbde1935478f29849fdf86b3bde1d97e);
+            
+        
+
+        marker_ca25651b7325495fd29ccccebf017a2a.bindPopup(popup_68b77414e7311bf26e5c952b19d14b2a)
+        ;
+
+        
+    
+    
+            marker_ca25651b7325495fd29ccccebf017a2a.bindTooltip(
+                `<div>
+                     Tajrish: $588,333
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ca25651b7325495fd29ccccebf017a2a.setIcon(icon_0d6da111ee76049627342c7523259db3);
+            
+    
+            var marker_3c4bdce56a3e2186951a85d0e8921570 = L.marker(
+                [35.74, 51.46],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_cf0c6765cb3511b0c9e41e053dce1ffc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "yellow",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c1eb063603f7283d89c7f0dd06ed1f97 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c054881467c9f7adc8ee0d1c7d897e6 = $(`<div id="html_9c054881467c9f7adc8ee0d1c7d897e6" style="width: 100.0%; height: 100.0%;">         <b>Zafar</b><br>         Average Price: $439,147<br>         Properties: 10<br>         Top 1% Properties: 1<br>         Price/m²: $1,893         </div>`)[0];
+                popup_c1eb063603f7283d89c7f0dd06ed1f97.setContent(html_9c054881467c9f7adc8ee0d1c7d897e6);
+            
+        
+
+        marker_3c4bdce56a3e2186951a85d0e8921570.bindPopup(popup_c1eb063603f7283d89c7f0dd06ed1f97)
+        ;
+
+        
+    
+    
+            marker_3c4bdce56a3e2186951a85d0e8921570.bindTooltip(
+                `<div>
+                     Zafar: $439,147
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3c4bdce56a3e2186951a85d0e8921570.setIcon(icon_cf0c6765cb3511b0c9e41e053dce1ffc);
+            
+    
+            var marker_2b4ad9ef95b47d2177424191c5a21050 = L.marker(
+                [35.76, 51.42],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_904d01c8833aecb8df0dd9b95819deb2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "yellow",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b676d2b231fe333ee62e6e9e70d62a73 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e4b3718abe9e3e841fd237f621c46589 = $(`<div id="html_e4b3718abe9e3e841fd237f621c46589" style="width: 100.0%; height: 100.0%;">         <b>Mirdamad</b><br>         Average Price: $346,267<br>         Properties: 15<br>         Top 1% Properties: 1<br>         Price/m²: $2,289         </div>`)[0];
+                popup_b676d2b231fe333ee62e6e9e70d62a73.setContent(html_e4b3718abe9e3e841fd237f621c46589);
+            
+        
+
+        marker_2b4ad9ef95b47d2177424191c5a21050.bindPopup(popup_b676d2b231fe333ee62e6e9e70d62a73)
+        ;
+
+        
+    
+    
+            marker_2b4ad9ef95b47d2177424191c5a21050.bindTooltip(
+                `<div>
+                     Mirdamad: $346,267
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2b4ad9ef95b47d2177424191c5a21050.setIcon(icon_904d01c8833aecb8df0dd9b95819deb2);
+            
+    
+            var marker_78ef01355753c497ab1c10df66c13a12 = L.marker(
+                [35.74, 51.32],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_31dec6e544d4b976b616cdf8a0149da2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "yellow",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a1fb67db597286d113531b14d3ffa2a7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_48a7257d8447362a409d92447960455d = $(`<div id="html_48a7257d8447362a409d92447960455d" style="width: 100.0%; height: 100.0%;">         <b>Shahrake Gharb</b><br>         Average Price: $398,996<br>         Properties: 59<br>         Top 1% Properties: 0<br>         Price/m²: $2,773         </div>`)[0];
+                popup_a1fb67db597286d113531b14d3ffa2a7.setContent(html_48a7257d8447362a409d92447960455d);
+            
+        
+
+        marker_78ef01355753c497ab1c10df66c13a12.bindPopup(popup_a1fb67db597286d113531b14d3ffa2a7)
+        ;
+
+        
+    
+    
+            marker_78ef01355753c497ab1c10df66c13a12.bindTooltip(
+                `<div>
+                     Shahrake Gharb: $398,996
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_78ef01355753c497ab1c10df66c13a12.setIcon(icon_31dec6e544d4b976b616cdf8a0149da2);
+            
+    
+            var marker_9d7ea3d900ae038a9afae3835e269aa0 = L.marker(
+                [35.78, 51.44],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_ddca57cd95ad855e21049cda038a15a6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "yellow",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c2a5e4a60038ea805239399ea458f517 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6585c5c8d0a96eedbff46c935259a74 = $(`<div id="html_a6585c5c8d0a96eedbff46c935259a74" style="width: 100.0%; height: 100.0%;">         <b>Gheitarieh</b><br>         Average Price: $357,490<br>         Properties: 140<br>         Top 1% Properties: 0<br>         Price/m²: $2,551         </div>`)[0];
+                popup_c2a5e4a60038ea805239399ea458f517.setContent(html_a6585c5c8d0a96eedbff46c935259a74);
+            
+        
+
+        marker_9d7ea3d900ae038a9afae3835e269aa0.bindPopup(popup_c2a5e4a60038ea805239399ea458f517)
+        ;
+
+        
+    
+    
+            marker_9d7ea3d900ae038a9afae3835e269aa0.bindTooltip(
+                `<div>
+                     Gheitarieh: $357,490
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9d7ea3d900ae038a9afae3835e269aa0.setIcon(icon_ddca57cd95ad855e21049cda038a15a6);
+            
+    
+            var marker_c86e8fa1655ef0f6568df032509886b5 = L.marker(
+                [35.765, 51.33],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_2614c9c21bad48f624fed61b1f3d1180 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a012710fa2d2c2c0791611e4e9bf1dc3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b620f59b784694db4fdfef8e1a47e63e = $(`<div id="html_b620f59b784694db4fdfef8e1a47e63e" style="width: 100.0%; height: 100.0%;">         <b>Punak</b><br>         Average Price: $124,277<br>         Properties: 161<br>         Top 1% Properties: 0<br>         Price/m²: $1,416         </div>`)[0];
+                popup_a012710fa2d2c2c0791611e4e9bf1dc3.setContent(html_b620f59b784694db4fdfef8e1a47e63e);
+            
+        
+
+        marker_c86e8fa1655ef0f6568df032509886b5.bindPopup(popup_a012710fa2d2c2c0791611e4e9bf1dc3)
+        ;
+
+        
+    
+    
+            marker_c86e8fa1655ef0f6568df032509886b5.bindTooltip(
+                `<div>
+                     Punak: $124,277
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c86e8fa1655ef0f6568df032509886b5.setIcon(icon_2614c9c21bad48f624fed61b1f3d1180);
+            
+    
+            var marker_53a46a5f67b673edfbb34324a357dc20 = L.marker(
+                [35.72, 51.75],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_77c70580bd4a13141fc01660eed91d19 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b758d8a75f8d5e7851fdb781137e560b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8cbaac6086707e3d8188f9cfb2866bc2 = $(`<div id="html_8cbaac6086707e3d8188f9cfb2866bc2" style="width: 100.0%; height: 100.0%;">         <b>Pardis</b><br>         Average Price: $25,927<br>         Properties: 146<br>         Top 1% Properties: 0<br>         Price/m²: $263         </div>`)[0];
+                popup_b758d8a75f8d5e7851fdb781137e560b.setContent(html_8cbaac6086707e3d8188f9cfb2866bc2);
+            
+        
+
+        marker_53a46a5f67b673edfbb34324a357dc20.bindPopup(popup_b758d8a75f8d5e7851fdb781137e560b)
+        ;
+
+        
+    
+    
+            marker_53a46a5f67b673edfbb34324a357dc20.bindTooltip(
+                `<div>
+                     Pardis: $25,927
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_53a46a5f67b673edfbb34324a357dc20.setIcon(icon_77c70580bd4a13141fc01660eed91d19);
+            
+    
+            var marker_ae6857bb09b3737255c6292a9ab69b6e = L.marker(
+                [35.73, 51.31],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_7697f5deba8d20b44cd3fecebc878099 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1df2796aa1bf2f45acab0ce6a002fae7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c97a5531db5f6570aa7d6311b0d0fbc8 = $(`<div id="html_c97a5531db5f6570aa7d6311b0d0fbc8" style="width: 100.0%; height: 100.0%;">         <b>West Ferdows Boulevard</b><br>         Average Price: $103,525<br>         Properties: 145<br>         Top 1% Properties: 0<br>         Price/m²: $1,343         </div>`)[0];
+                popup_1df2796aa1bf2f45acab0ce6a002fae7.setContent(html_c97a5531db5f6570aa7d6311b0d0fbc8);
+            
+        
+
+        marker_ae6857bb09b3737255c6292a9ab69b6e.bindPopup(popup_1df2796aa1bf2f45acab0ce6a002fae7)
+        ;
+
+        
+    
+    
+            marker_ae6857bb09b3737255c6292a9ab69b6e.bindTooltip(
+                `<div>
+                     West Ferdows Boulevard: $103,525
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ae6857bb09b3737255c6292a9ab69b6e.setIcon(icon_7697f5deba8d20b44cd3fecebc878099);
+            
+    
+            var marker_260819c33099babfc338fa2fb7856197 = L.marker(
+                [35.49, 51.01],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_f2b792c017d23cf33be996a217603c4f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e544f25e0f71c3c4ecd3746bcf815aa4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_74ca745020cc09d45a0867497deae56d = $(`<div id="html_74ca745020cc09d45a0867497deae56d" style="width: 100.0%; height: 100.0%;">         <b>Parand</b><br>         Average Price: $17,453<br>         Properties: 127<br>         Top 1% Properties: 0<br>         Price/m²: $204         </div>`)[0];
+                popup_e544f25e0f71c3c4ecd3746bcf815aa4.setContent(html_74ca745020cc09d45a0867497deae56d);
+            
+        
+
+        marker_260819c33099babfc338fa2fb7856197.bindPopup(popup_e544f25e0f71c3c4ecd3746bcf815aa4)
+        ;
+
+        
+    
+    
+            marker_260819c33099babfc338fa2fb7856197.bindTooltip(
+                `<div>
+                     Parand: $17,453
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_260819c33099babfc338fa2fb7856197.setIcon(icon_f2b792c017d23cf33be996a217603c4f);
+            
+    
+            var marker_d4a840f2164108208995de63c9d58783 = L.marker(
+                [35.66, 50.97],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_63331460cec5567e16a5921ed8ba8b35 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_19e843b5364768fb35da358acbc0bc01 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c4958202273fd03a0f0217d2497fcf8 = $(`<div id="html_9c4958202273fd03a0f0217d2497fcf8" style="width: 100.0%; height: 100.0%;">         <b>Malard</b><br>         Average Price: $8,333<br>         Properties: 2<br>         Top 1% Properties: 0<br>         Price/m²: $139         </div>`)[0];
+                popup_19e843b5364768fb35da358acbc0bc01.setContent(html_9c4958202273fd03a0f0217d2497fcf8);
+            
+        
+
+        marker_d4a840f2164108208995de63c9d58783.bindPopup(popup_19e843b5364768fb35da358acbc0bc01)
+        ;
+
+        
+    
+    
+            marker_d4a840f2164108208995de63c9d58783.bindTooltip(
+                `<div>
+                     Malard: $8,333
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d4a840f2164108208995de63c9d58783.setIcon(icon_63331460cec5567e16a5921ed8ba8b35);
+            
+    
+            var marker_a12ee55d98a6898fc37d5afd95988c38 = L.marker(
+                [35.48, 51.08],
+                {
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+        
+    
+            var icon_543b54f0007947c0d571979b43c92d1f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5f11da2efa798503544056ecce8d484d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fac01fbb540ea63e5d4d6f8ae8c93696 = $(`<div id="html_fac01fbb540ea63e5d4d6f8ae8c93696" style="width: 100.0%; height: 100.0%;">         <b>Robat Karim</b><br>         Average Price: $10,917<br>         Properties: 2<br>         Top 1% Properties: 0<br>         Price/m²: $184         </div>`)[0];
+                popup_5f11da2efa798503544056ecce8d484d.setContent(html_fac01fbb540ea63e5d4d6f8ae8c93696);
+            
+        
+
+        marker_a12ee55d98a6898fc37d5afd95988c38.bindPopup(popup_5f11da2efa798503544056ecce8d484d)
+        ;
+
+        
+    
+    
+            marker_a12ee55d98a6898fc37d5afd95988c38.bindTooltip(
+                `<div>
+                     Robat Karim: $10,917
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a12ee55d98a6898fc37d5afd95988c38.setIcon(icon_543b54f0007947c0d571979b43c92d1f);
+            
+    
+            var layer_control_bbb7fcd84786f41e37ae535c06cd9e13_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_8ecb111192a8275e6b74899814896b91,
+                },
+                overlays :  {
+                    "Average Price Heatmap" : heat_map_f6bc8771e67d7c1a1974adb89e97ee95,
+                },
+            };
+            let layer_control_bbb7fcd84786f41e37ae535c06cd9e13 = L.control.layers(
+                layer_control_bbb7fcd84786f41e37ae535c06cd9e13_layers.base_layers,
+                layer_control_bbb7fcd84786f41e37ae535c06cd9e13_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_8bbbeecb26ccd716a3e5bc5aad992166);
+
+        
+</script>
+</html>
